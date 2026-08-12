@@ -35,3 +35,10 @@ class Producto {
     }
 }
 
+const teclado = new Producto("Teclado", 10000, "electrónica", 5);
+console.log(teclado.describir()); 
+console.log(teclado.hayStock(3));
+teclado.venderUnidades(3);
+console.log(teclado.describir());
+console.log(teclado.aplicarDescuento(20));
+console.log(teclado.precio); //Precio original
