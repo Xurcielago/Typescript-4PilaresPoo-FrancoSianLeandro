@@ -9,10 +9,27 @@ class CuentaBancaria {
         this.historial = [];
     }
 
-    get nombreTitular(): string {
+    get consultarTitular(): string {
         return this.titular;
     }
 
+    get consultarSaldo(): number {
+        return this.saldo;
+    }
+
+    get obtenerHistorial(): { tipo: string; monto: number }[] {
+        return this.historial.map(mov => ({ tipo: mov.tipo, monto: mov.monto }));
+    }
+   
+    /* Versión sin Getters
+    public consultarSaldo(): number {
+        return this.saldo;
+    }
+    
+    public obtenerHistorial(): { tipo: string; monto: number }[] {
+        return this.historial.map(mov => ({ tipo: mov.tipo, monto: mov.monto }));
+    }
+    */
     public depositar(monto: number): void {
         if (monto <= 0) {
             throw new Error("El monto a depositar debe ser mayor a 0.");
@@ -31,19 +48,23 @@ class CuentaBancaria {
         this.saldo -= monto;
         this.historial.push({ tipo: "retiro", monto });
     }
-
-    public consultarSaldo(): number {
-        return this.saldo;
-    }
-        public obtenerHistorial(): { tipo: string; monto: number }[] {
-        return this.historial.map(mov => ({ tipo: mov.tipo, monto: mov.monto }));
-    }
 }
 
 const cuenta = new CuentaBancaria("John CuentaBancaria", 5000);
-console.log(cuenta.nombreTitular)
+
+
+console.log(cuenta.consultarTitular)
+
+cuenta.depositar(2000);
+console.log(cuenta.consultarSaldo); 
+cuenta.retirar(1000);
+console.log(cuenta.consultarSaldo); 
+console.log(cuenta.obtenerHistorial);
+
+/* Versión sin Getters
 cuenta.depositar(2000);
 console.log(cuenta.consultarSaldo()); 
 cuenta.retirar(1000);
 console.log(cuenta.consultarSaldo()); 
 console.log(cuenta.obtenerHistorial());
+*/
